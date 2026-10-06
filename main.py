@@ -11,6 +11,7 @@ button_values = [
 
 right_symbols = ["÷", "*", "-", "+", "="]
 top_symbols = ["AC", "√", "%"]
+bottom_symbols = ["+/-"]
 
 row_count = len(button_values)
 column_count = len(button_values[0])
@@ -58,16 +59,36 @@ A = "0"
 operator = None
 B = None
 
+def clear_all():
+    global right_symbols, top_symbols, A, B, operator
+
+def remove_decimal(num):
+    if num % 1 == 0:
+        num = int(num)
+    return str(num)
+
 def button_clicked(value):
     global right_symbols, top_symbols, label, A, B, operator
 
     if value in right_symbols:
         pass
+    elif value in bottom_symbols:
+        if value == "+/-":
+            result = float(label["text"]) * -1
+            label["text"] = remove_decimal(result)
     elif value in top_symbols:
-        pass
+        if value == "AC":
+            clear_all()
+            label["text"] = "0"
+        elif value == "√":
+            pass
+        elif value == "%":
+            result = float(label["text"]) / 100
+            label["text"] = remove_decimal(result)
     else: #
         if value == ".":
-            label["text"] += value #append digit
+            if value not in label["text"]:
+                label["text"] += value #append digit
         elif value in "0123456789":
             if label["text"] == "0":
                 label["text"] = value #replace 0
