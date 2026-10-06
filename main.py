@@ -67,7 +67,7 @@ def button_clicked(value):
         pass
     else: #
         if value == ".":
-            pass
+            label["text"] += value #append digit
         elif value in "0123456789":
             if label["text"] == "0":
                 label["text"] = value #replace 0
