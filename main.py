@@ -7,6 +7,7 @@ button_values = [
     ["1", "2", "3", "+"],
     ["+/-", "0", ".", "="]
 ]
+# later add reverse number layout option
 
 right_symbols = ["÷", "*", "-", "+", "="]
 top_symbols = ["AC", "√", "%"]
@@ -14,20 +15,23 @@ top_symbols = ["AC", "√", "%"]
 row_count = len(button_values)
 column_count = len(button_values[0])
 
-#color scheme
+# color scheme
 colo_light_grey = "#d4d4d2"
 color_black = "#1c1c1c"
 color_dark_grey = "#505050"
 color_blue = "#1e90ff"
 color_white = "white"
+# later add alt color scheme
 
-#window setup
+# window setup
 window = tkinter.Tk()
 window.title("Calculator")
 window.resizable(False, False)
+# later let program remember last screen position before close
 
 frame = tkinter.Frame(window)
-label = tkinter.Label(frame, text="0", font=("Arial", 45), background=color_black, foreground=color_white, anchor="e")
+label = tkinter.Label(frame, text="0", font=("Arial", 45), background=color_black, foreground=color_white, anchor="e", width=column_count)
+# later reduce size of lable, if value exceeds screen size, reduce text size
 
 label.grid(row=0, column=0, columnspan=column_count, sticky="we")
 
@@ -49,7 +53,25 @@ for row in range(row_count):
 
 frame.pack()
 
+#A+B A-B, A*B, A/B
+A = "0"
+operator = None
+B = None
+
 def button_clicked(value):
-    pass
+    global right_symbols, top_symbols, label, A, B, operator
+
+    if value in right_symbols:
+        pass
+    elif value in top_symbols:
+        pass
+    else: #
+        if value == ".":
+            pass
+        elif value in "0123456789":
+            if label["text"] == "0":
+                label["text"] = value #replace 0
+            else:
+                label["text"] += value #append digit
 
 window.mainloop()
