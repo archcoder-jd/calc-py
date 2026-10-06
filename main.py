@@ -8,7 +8,7 @@ button_values = [
     ["+/-", "0", ".", "="]
 ]
 
-right_symbols = ["÷", "x", "-", "+", "="]
+right_symbols = ["÷", "*", "-", "+", "="]
 top_symbols = ["AC", "√", "%"]
 
 row_count = len(button_values)
@@ -37,6 +37,14 @@ for row in range(row_count):
         button = tkinter.Button(frame, text=value, font=("Arial", 30),
             width=column_count-1, height=1,
             command=lambda value=value: button_clicked(value))
+
+        if value in top_symbols:
+            button.config(foreground=color_black, background=colo_light_grey)
+        elif value in right_symbols:
+            button.config(foreground=color_white, background=color_blue)
+        else:
+            button.config(foreground=color_white, background=color_dark_grey)
+
         button.grid(row=row+1, column=column)
 
 frame.pack()
