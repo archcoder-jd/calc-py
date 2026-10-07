@@ -107,7 +107,11 @@ def button_clicked(value):
             result = float(label["text"]) / 100
             label["text"] = remove_decimal(result)
         elif value == "⌫":
-            pass
+            text = label["text"]
+            if len(text) > 1 and not (len(text) == 2 and text[0]) == "-":
+                label["text"] = text[:-1]
+            else:
+                label["text"] = "0"
 
     elif value in bottom_symbols:
         if value == "+/-":
@@ -123,5 +127,33 @@ def button_clicked(value):
                 label["text"] = value # replace 0
             else:
                 label["text"] += value # append digit
+
+    # keyboard support
+    key_map = {
+        "/": "÷",
+        "*": "×",
+        "-": "-",
+        "+": "+",
+        "=": "=",
+        "%": "%",
+        ".": ".",
+    }
+
+    def on_key(event):
+        key = event.char
+        keysym = event.keysym
+
+        if key in "0123456789" and key != "":
+            button_clicked(key)
+        elif key in key_map:
+            button_clicked(key_map[key])
+        elif keysym in ("Return", "KP_Enter"):
+            button_clicked("=")
+        elif keysym == "BackSpace":
+            button_clicked("⌫")
+        elif keysym in ("Escape", "Delete"):
+            button_clicked("AC")
+    
+    window.bind("<Key>", on_key)
 
 window.mainloop()
