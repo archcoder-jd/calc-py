@@ -1,16 +1,16 @@
 import tkinter
 
 button_values = [
-    ["AC", "√", "%", "÷"],
-    ["7", "8", "9", "*"],
+    ["⌫", "AC", "%", "÷"],
+    ["7", "8", "9", "×"],
     ["4", "5", "6", "-"],
     ["1", "2", "3", "+"],
     ["+/-", "0", ".", "="]
 ]
 # later add reverse number layout option
 
-right_symbols = ["÷", "*", "-", "+", "="]
-top_symbols = ["AC", "√", "%"]
+right_symbols = ["÷", "×", "-", "+", "="]
+top_symbols = ["⌫", "AC", "%"]
 bottom_symbols = ["+/-"]
 
 row_count = len(button_values)
@@ -60,7 +60,10 @@ operator = None
 B = None
 
 def clear_all():
-    global right_symbols, top_symbols, A, B, operator
+    global A, B, operator
+    A = "0"
+    operator = None
+    B = None
 
 def remove_decimal(num):
     if num % 1 == 0:
@@ -68,31 +71,57 @@ def remove_decimal(num):
     return str(num)
 
 def button_clicked(value):
-    global right_symbols, top_symbols, label, A, B, operator
+    global right_symbols, top_symbols, bottom_symbols, label, A, B, operator
 
     if value in right_symbols:
-        pass
-    elif value in bottom_symbols:
-        if value == "+/-":
-            result = float(label["text"]) * -1
-            label["text"] = remove_decimal(result)
+        if value == "=":
+            if A is not None and operator is not None:
+                B = label["text"]
+                numA = float(A)
+                numB = float(B)
+
+                if operator == "÷":
+                    label["text"] = remove_decimal(numA / numB)
+                elif operator == "×":
+                    label["text"] = remove_decimal(numA * numB)
+                elif operator == "-":
+                    label["text"] = remove_decimal(numA - numB)
+                elif operator == "+":
+                    label["text"] = remove_decimal(numA + numB)
+
+                clear_all()
+                
+        elif value in "÷×-+":
+            if operator is None:
+                A = label["text"]
+                label["text"] ="0"
+                B = "0"
+
+            operator = value
+
     elif value in top_symbols:
         if value == "AC":
             clear_all()
             label["text"] = "0"
-        elif value == "√":
-            pass
         elif value == "%":
             result = float(label["text"]) / 100
             label["text"] = remove_decimal(result)
+        elif value == "⌫":
+            pass
+
+    elif value in bottom_symbols:
+        if value == "+/-":
+            result = float(label["text"]) * -1
+            label["text"] = remove_decimal(result)
+            
     else: #
         if value == ".":
             if value not in label["text"]:
-                label["text"] += value #append digit
+                label["text"] += value # append digit
         elif value in "0123456789":
             if label["text"] == "0":
-                label["text"] = value #replace 0
+                label["text"] = value # replace 0
             else:
-                label["text"] += value #append digit
+                label["text"] += value # append digit
 
 window.mainloop()
