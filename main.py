@@ -202,6 +202,13 @@ def remove_decimal(num):
 def button_clicked(value):
     global right_symbols, top_symbols, bottom_symbols, label, A, B, operator
 
+    if label["text"] == "Error":
+        if value in ("AC", "⌫") or value in "0123456789.":
+            clear_all()
+            label["text"] = "0"
+        else:
+            return
+
     if value in right_symbols:
         if value == "=":
             if A is not None and operator is not None:
@@ -209,7 +216,7 @@ def button_clicked(value):
                 numA = float(A)
                 numB = float(B)
                 expression = f"{A} {operator} {B}"
-
+            try:
                 if operator == "÷":
                     label["text"] = remove_decimal(numA / numB)
                 elif operator == "×":
@@ -218,9 +225,13 @@ def button_clicked(value):
                     label["text"] = remove_decimal(numA - numB)
                 elif operator == "+":
                     label["text"] = remove_decimal(numA + numB)
-
-                add_history_entry(expression, label["text"])
+            except ZeroDivisionError:
+                label["text"] = "Error"
                 clear_all()
+                return # skip history entry
+
+            add_history_entry(expression, label["text"])
+            clear_all()
                 
         elif value in "÷×-+":
             if operator is None:
