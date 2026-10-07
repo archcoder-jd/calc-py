@@ -142,8 +142,8 @@ def refresh_history_list():
         if stamp.date() != last_day:
             last_day = stamp.date()
             history_list.insert(tkinter.END, day_label(last_day))
-            history_list.itemconfig(history_list.size() - 1, foreground=colo_light_grey,
-                selectforeground=colo_light_grey, selectbackground=color_black)
+            history_list.itemconfig(history_list.size() - 1, foreground=color_light_grey,
+                selectforeground=color_light_grey, selectbackground=color_black)
             history_rows.append(None)
         history_list.insert(tkinter.END, f"{stamp:%H:%M}   {entry['expression']} = {entry['result']}")
         history_rows.append(entry)
@@ -180,7 +180,7 @@ def open_history():
     history_list.bind("<Double-Button-1>", history_selected)
  
     clear_button = tkinter.Button(history_window, text="Clear history", font=("Arial", 14),
-        foreground=color_black, background=colo_light_grey, command=clear_history)
+        foreground=color_black, background=color_light_grey, command=clear_history)
  
     history_list.grid(row=0, column=0, sticky="nsew")
     scrollbar.grid(row=0, column=1, sticky="ns")
@@ -239,7 +239,7 @@ def button_clicked(value):
             label["text"] = remove_decimal(result)
         elif value == "⌫":
             text = label["text"]
-            if len(text) > 1 and not (len(text) == 2 and text[0]) == "-":
+            if len(text) > 1 and not (len(text) == 2 and text[0] == "-"):
                 label["text"] = text[:-1]
             else:
                 label["text"] = "0"
@@ -259,32 +259,32 @@ def button_clicked(value):
             else:
                 label["text"] += value # append digit
 
-    # keyboard support
-    key_map = {
-        "/": "÷",
-        "*": "×",
-        "-": "-",
-        "+": "+",
-        "=": "=",
-        "%": "%",
-        ".": ".",
-    }
+# keyboard support
+key_map = {
+    "/": "÷",
+    "*": "×",
+    "-": "-",
+    "+": "+",
+    "=": "=",
+    "%": "%",
+    ".": ".",
+}
 
-    def on_key(event):
-        key = event.char
-        keysym = event.keysym
+def on_key(event):
+    key = event.char
+    keysym = event.keysym
 
-        if key in "0123456789" and key != "":
-            button_clicked(key)
-        elif key in key_map:
-            button_clicked(key_map[key])
-        elif keysym in ("Return", "KP_Enter"):
-            button_clicked("=")
-        elif keysym == "BackSpace":
-            button_clicked("⌫")
-        elif keysym in ("Escape", "Delete"):
-            button_clicked("AC")
-    
-    window.bind("<Key>", on_key)
+    if key in "0123456789" and key != "":
+        button_clicked(key)
+    elif key in key_map:
+        button_clicked(key_map[key])
+    elif keysym in ("Return", "KP_Enter"):
+        button_clicked("=")
+    elif keysym == "BackSpace":
+        button_clicked("⌫")
+    elif keysym in ("Escape", "Delete"):
+        button_clicked("AC")
+
+window.bind("<Key>", on_key)
 
 window.mainloop()
