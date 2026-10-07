@@ -216,22 +216,22 @@ def button_clicked(value):
                 numA = float(A)
                 numB = float(B)
                 expression = f"{A} {operator} {B}"
-            try:
-                if operator == "÷":
-                    label["text"] = remove_decimal(numA / numB)
-                elif operator == "×":
-                    label["text"] = remove_decimal(numA * numB)
-                elif operator == "-":
-                    label["text"] = remove_decimal(numA - numB)
-                elif operator == "+":
-                    label["text"] = remove_decimal(numA + numB)
-            except ZeroDivisionError:
-                label["text"] = "Error"
-                clear_all()
-                return # skip history entry
+                try:
+                    if operator == "÷":
+                        label["text"] = remove_decimal(numA / numB)
+                    elif operator == "×":
+                        label["text"] = remove_decimal(numA * numB)
+                    elif operator == "-":
+                        label["text"] = remove_decimal(numA - numB)
+                    elif operator == "+":
+                        label["text"] = remove_decimal(numA + numB)
+                except ZeroDivisionError:
+                    label["text"] = "Error"
+                    clear_all()
+                    return # skip history entry
 
-            add_history_entry(expression, label["text"])
-            clear_all()
+                add_history_entry(expression, label["text"])
+                clear_all()
                 
         elif value in "÷×-+":
             if operator is None:
