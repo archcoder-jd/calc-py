@@ -3,6 +3,9 @@ import os
 import tkinter
 from datetime import datetime, timedelta
 
+# ============================================================
+# BUTTONS
+# ============================================================
 button_values = [
     ["⌫", "AC", "%", "÷"],
     ["7", "8", "9", "×"],
@@ -19,7 +22,22 @@ bottom_symbols = ["+/-"]
 row_count = len(button_values)
 column_count = len(button_values[0])
 
-# color scheme
+# ============================================================
+# KEYBOARD SUPPORT
+# ============================================================
+key_map = {
+    "/": "÷",
+    "*": "×",
+    "-": "-",
+    "+": "+",
+    "=": "=",
+    "%": "%",
+    ".": ".",
+}
+
+# ============================================================
+# COLOR SCHEME
+# ============================================================
 color_light_grey = "#d4d4d2"
 color_black = "#1c1c1c"
 color_dark_grey = "#505050"
@@ -27,7 +45,9 @@ color_blue = "#1e90ff"
 color_white = "white"
 # later add alt color scheme
 
-# window setup
+# ============================================================
+# WINDOW SETUP
+# ============================================================
 window = tkinter.Tk()
 window.title("Calculator")
 window.resizable(False, False)
@@ -62,6 +82,9 @@ history_button.grid(row=row_count+1, column=0, columnspan=column_count, sticky="
 
 frame.pack()
 
+# ============================================================
+# VARIABLES
+# ============================================================
 #A+B A-B, A*B, A/B
 A = "0"
 operator = None
@@ -71,6 +94,28 @@ B = None
 HISTORY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "history.json")
 HISTORY_DAYS = 7
 
+# ============================================================
+# FUNCTIONS
+# ============================================================
+# ==== Key assign ====
+def on_key(event):
+    key = event.char
+    keysym = event.keysym
+
+    if key in "0123456789" and key != "":
+        button_clicked(key)
+    elif key in key_map:
+        button_clicked(key_map[key])
+    elif keysym in ("Return", "KP_Enter"):
+        button_clicked("=")
+    elif keysym == "BackSpace":
+        button_clicked("⌫")
+    elif keysym in ("Escape", "Delete"):
+        button_clicked("AC")
+
+window.bind("<Key>", on_key)
+
+# ==== History ====
 def prune_history(entries):
     cutoff = datetime.now() - timedelta(days=HISTORY_DAYS)
     kept = []
@@ -188,6 +233,7 @@ def open_history():
  
     refresh_history_list()
 
+# ==== Support ====
 def clear_all():
     global A, B, operator
     A = "0"
@@ -199,6 +245,7 @@ def remove_decimal(num):
         num = int(num)
     return str(num)
 
+# ==== Program logic ====
 def button_clicked(value):
     global right_symbols, top_symbols, bottom_symbols, label, A, B, operator
 
@@ -269,33 +316,5 @@ def button_clicked(value):
                 label["text"] = value # replace 0
             else:
                 label["text"] += value # append digit
-
-# keyboard support
-key_map = {
-    "/": "÷",
-    "*": "×",
-    "-": "-",
-    "+": "+",
-    "=": "=",
-    "%": "%",
-    ".": ".",
-}
-
-def on_key(event):
-    key = event.char
-    keysym = event.keysym
-
-    if key in "0123456789" and key != "":
-        button_clicked(key)
-    elif key in key_map:
-        button_clicked(key_map[key])
-    elif keysym in ("Return", "KP_Enter"):
-        button_clicked("=")
-    elif keysym == "BackSpace":
-        button_clicked("⌫")
-    elif keysym in ("Escape", "Delete"):
-        button_clicked("AC")
-
-window.bind("<Key>", on_key)
 
 window.mainloop()
