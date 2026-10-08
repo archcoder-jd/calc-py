@@ -1,0 +1,104 @@
+[
+  {
+    "time": "2026-10-07T10:07:08",
+    "expression": "5 + 3",
+    "result": "8"
+  },
+  {
+    "time": "2026-10-07T10:07:16",
+    "expression": "88 + 3",
+    "result": "91"
+  },
+  {
+    "time": "2026-10-07T10:23:30",
+    "expression": "236 + 1",
+    "result": "237"
+  },
+  {
+    "time": "2026-10-07T10:45:42",
+    "expression": "5 ÷ 2",
+    "result": "2.5"
+  },
+  {
+    "time": "2026-10-07T10:46:39",
+    "expression": "2 + 2",
+    "result": "4"
+  },
+  {
+    "time": "2026-10-07T10:46:50",
+    "expression": "0 ÷ 5",
+    "result": "0"
+  },
+  {
+    "time": "2026-10-07T10:47:32",
+    "expression": "0 ÷ 12",
+    "result": "0"
+  },
+  {
+    "time": "2026-10-07T11:11:47",
+    "expression": "5 ÷ 2",
+    "result": "2.5"
+  },
+  {
+    "time": "2026-10-07T11:15:34",
+    "expression": "4 + 2",
+    "result": "6"
+  },
+  {
+    "time": "2026-10-07T12:55:37",
+    "expression": "20 of 53",
+    "result": "37.74",
+    "unit": "%"
+  },
+  {
+    "time": "2026-10-07T12:56:00",
+    "expression": "83% of 200",
+    "result": "166"
+  },
+  {
+    "time": "2026-10-07T12:56:18",
+    "expression": "46% of 200",
+    "result": "92"
+  },
+  {
+    "time": "2026-10-07T12:56:42",
+    "expression": "46 of 200",
+    "result": "23",
+    "unit": "%"
+  },
+  {
+    "time": "2026-10-07T13:41:43",
+    "expression": "23 + 2",
+    "result": "25"
+  },
+  {
+    "time": "2026-10-07T17:07:28",
+    "expression": "5 + 3",
+    "result": "8"
+  },
+  {
+    "time": "2026-10-07T17:07:39",
+    "expression": "2 + 3",
+    "result": "5"
+  },
+  {
+    "time": "2026-10-07T17:08:26",
+    "expression": "2 + 34",
+    "result": "36"
+  },
+  {
+    "time": "2026-10-07T17:19:27",
+    "expression": "2 + 3",
+    "result": "5"
+  },
+  {
+    "time": "2026-10-07T17:21:28",
+    "expression": "2 + 3",
+    "result": "5"
+  },
+  {
+    "time": "2026-10-07T17:21:32",
+    "expression": "533 + 6",
+    "result": "539"
+  }
+]
