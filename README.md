@@ -64,6 +64,12 @@ Ideas I'm planning to add:
 - Remember the window position between sessions
 - Shrink the display text when a number is too long to fit
 
+## Status
+![GitHub repo size](https://img.shields.io/github/repo-size/archcoder-jd/calc-py)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/archcoder-jd/calc-py)
+![GitHub repo file or directory count](https://img.shields.io/github/directory-file-count/archcoder-jd/calc-py)
+![GitHub top language](https://img.shields.io/github/languages/top/archcoder-jd/calc-py)
+
 ## License
 
 Released under the [MIT License](LICENSE).
